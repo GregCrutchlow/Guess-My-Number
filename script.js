@@ -2,10 +2,14 @@
 
 // Secret number generator
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
+console.log(secretNumber);
 
 
 // Score update
 let score = 20;
+
+// Highscore
+let highscore = 0;
 
 // DOM selectors
 const message = document.querySelector(".message");
@@ -18,12 +22,12 @@ const guess = document.querySelector('.guess')
 // Event handler to retrieve the number for guess
 document.querySelector('.check').addEventListener("click", () => {
     const guess = Number(document.querySelector('.guess').value);
-    console.log(guess, typeof guess);
+    // console.log(guess, typeof guess);
 
     // When there is no input
     if (!guess) {
-        message.textContent = "⛔ Please choose a number! ⛔"
-
+        message.textContent = "⛔ Please choose a number! ⛔" 
+    
     // When player wins    
     } else if (guess === secretNumber) {
         message.textContent = '🎉 Correct Number!'
@@ -31,7 +35,10 @@ document.querySelector('.check').addEventListener("click", () => {
         body.style.backgroundColor = "#60b347";
         secretNumberDisplay.style.fontSize = '8rem';
         secretNumberDisplay.style.width = '30rem';
-        
+        if (score > highscore) {
+            highscore = score;
+            highscoreMessage.textContent = score;
+        }
     // When guess is too low    
     } else if (guess < secretNumber) {
         if (score > 1) {
@@ -62,6 +69,7 @@ document.querySelector('.check').addEventListener("click", () => {
 document.querySelector('.again').addEventListener('click', () => {
     score = 20;
     secretNumber = Math.trunc(Math.random() * 20) + 1;
+    console.log(secretNumber);
 
     scoreMessage.textContent = score
     message.textContent = 'Start guessing...'
